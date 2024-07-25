@@ -1,9 +1,0 @@
-alpine-baselayout
-alpine-keys
-apk-tools
-bind-tools
-busybox
-busybox-extras
-ca-certificates
-libc-utils
-net-tools
