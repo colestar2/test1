@@ -55,12 +55,10 @@ jobs:
 
       - name: Update YAML files and commit changes
         run: |
-          sed -i 's|image:.*productcatalogservice:.*|image: ${{ secrets.DOCKER_USERNAME }}/productcatalogservice:latest|g' kustomize/base/productcatalogservice.yaml
-          touch kustomize/base/productcatalogservice.yaml
+          sed -i 's|image:.*|image: '"${{ secrets.DOCKER_USERNAME }}"'/productcatalogservice:latest|g' kustomize/base/productcatalogservice.yaml
           git add kustomize/base/productcatalogservice.yaml
           git commit -m "Update productcatalogservice image to latest" --allow-empty
-          sed -i 's|image:.*frontend:.*|image: ${{ secrets.DOCKER_USERNAME }}/frontend:latest|g' kustomize/base/frontend.yaml
-          touch kustomize/base/frontend.yaml
+          sed -i 's|image:.*|image: '"${{ secrets.DOCKER_USERNAME }}"'/frontend:latest|g' kustomize/base/frontend.yaml
           git add kustomize/base/frontend.yaml
           git commit -m "Update frontend image to latest" --allow-empty
           git push origin mooon
