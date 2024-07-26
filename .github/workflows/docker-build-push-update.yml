@@ -26,16 +26,19 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
 
-
       - name: Update productcatalogservice.yaml and commit changes
         run: |
-          sed -i 's|image:.*|image: '"${{ secrets.DOCKER_USERNAME }}"'/productcatalogservice:latest|g' kustomize/base/productcatalogservice.yaml
+          sed -i 's|image:.*productcatalogservice:.*|image: '"${{ secrets.DOCKER_USERNAME }}"'/productcatalogservice:latest|g' kustomize/base/productcatalogservice.yaml
+          echo "Updated productcatalogservice.yaml:"
+          cat kustomize/base/productcatalogservice.yaml
           git add kustomize/base/productcatalogservice.yaml
           git commit -m "Update productcatalogservice image to latest" --allow-empty
 
       - name: Update frontend.yaml and commit changes
         run: |
-          sed -i 's|image:.*|image: '"${{ secrets.DOCKER_USERNAME }}"'/frontend:latest|g' kustomize/base/frontend.yaml
+          sed -i 's|image:.*frontend:.*|image: '"${{ secrets.DOCKER_USERNAME }}"'/frontend:latest|g' kustomize/base/frontend.yaml
+          echo "Updated frontend.yaml:"
+          cat kustomize/base/frontend.yaml
           git add kustomize/base/frontend.yaml
           git commit -m "Update frontend image to latest" --allow-empty
 
@@ -44,4 +47,3 @@ jobs:
           git push origin mooon
         env:
           GIT_REPO_TOKEN: ${{ secrets.GIT_REPO_TOKEN }}
-
